@@ -3,7 +3,7 @@ export default function Navbar() {
     return (
       <nav className="flex items-center justify-center gap-12 px-8 py-4 shadow-sm">
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-italic" style={{fontFamily: 'Anton SC', fontSize: '34px'}}>ARACON.PE</h1>
+          <h1 className="text-2xl font-italic" style={{fontFamily: 'Lexend', fontSize: '34px'}}>ARACON.PE</h1>
         </div>
         <div className="flex flex-row items-center justify-between">
             <div className="flex flex-row hidden md:flex">

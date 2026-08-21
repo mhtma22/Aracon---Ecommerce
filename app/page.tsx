@@ -1,5 +1,8 @@
-'use client'
-import useEmblaCarousel from 'embla-carousel-react'
+'use client'; // Necesario en Next.js porque usa hooks (useState, useEffect)
+
+import { useEffect } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import AutoScroll from 'embla-carousel-auto-scroll';
 
 const companies = [
   { id: 1, name: "Versace", src: "/versace.svg", size: "h-8" },
@@ -9,9 +12,25 @@ const companies = [
   { id: 5, name: "Gucci", src: "/gucci.svg", size: "h-8" },
 ];
 
-
 export default function Home() {
-  const [emblaRef] = useEmblaCarousel()
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: 'start', dragFree: true },
+    [
+      AutoScroll({
+        speed: 1.1,
+        playOnInit: true,
+        stopOnInteraction: false
+      })
+    ]
+  );
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.plugins().autoScroll?.play();
+  }, [emblaApi]);
+
+  // Duplicamos el array varias veces para garantizar que desborde y ruede fluidamente
+  const extendedCompanies = [...companies, ...companies, ...companies];
 
   return (
     <main className="flex-1">
@@ -47,45 +66,24 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full bg-black py-10 overflow-hidden">
-        {/* Contenedor del carrusel con degradados oscuros en los bordes */}
-        <div className="relative flex overflow-x-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 before:bg-gradient-to-r before:from-black before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 after:bg-gradient-to-l after:from-black after:to-transparent">
-          
-          {/* Pista con la animación */}
-          <div className="flex marquee-track whitespace-nowrap gap-16 items-center">
-            {[...companies, ...companies].map((company, index) => (
-              <a
-                key={index}
-                href="#inline-flex items-center mr-0"
-                
-              >
-                <img 
-                  src={company.src} 
-                  alt={company.name} 
-            
-                  className={`block w-auto object-contain transition-all duration-300
-                    brightness-0 invert opacity-70 hover:opacity-100 
-                    ${company.size}
-                  `}
-                />
-              </a>
-            ))}
-          </div>
+    
+      <div className="w-full bg-black py-10 overflow-hidden" ref={emblaRef}>
+        <div className="flex items-center">
+          {extendedCompanies.map((company, index) => (
+            <div 
+              key={`${company.id}-${index}`} 
+              className="flex-[0_0_240px] min-w-0 flex items-center justify-center px-6 select-none"
+            >
+              <img
+                src={company.src}
+                alt={company.name}
+                width={120}
+                height={40}
+                className={`w-auto object-contain filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity ${company.size}`}
+              />
+            </div>
+          ))}
         </div>
-      </div>
-      {/* Carousel */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex bg-white/30">
-          <div className="flex-[0_0_100%]">
-            <img src="/banner1.jpg" alt="banner" className="w-full h-[400px] object-cover" />
-          </div>
-          <div className="flex-[0_0_100%]">
-            <img src="/banner2.jpg" alt="banner" className="w-full h-[400px] object-cover" />
-          </div>
-          <div className="flex-[0_0_100%]">
-            <img src="/banner3.jpg" alt="banner" className="w-full h-[400px] object-cover" />
-          </div>
-        </div>  
       </div>
     </main>
   );
