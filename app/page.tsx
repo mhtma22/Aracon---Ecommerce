@@ -85,6 +85,12 @@ export default function Home() {
           ))}
         </div>
       </div>
+      <div className='w-full bg-black py-10 overflow-hidden flex items-center justify-center'>
+        <div className='flex flex-col text-white'>
+          <h3 className='text-5xl font-medium' style={{fontFamily: 'Staatliches'}}>NUEVOS ESTILOS</h3>
+        </div>
+        
+      </div>
     </main>
   );
 }
