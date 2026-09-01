@@ -39,3 +39,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# env files (contienen las keys de Supabase)
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Next.js
+.next/
+out/
+
+# dependencias
+node_modules/
+
+# otros
+.DS_Store
+*.log
