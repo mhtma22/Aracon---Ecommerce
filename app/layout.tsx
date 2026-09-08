@@ -35,8 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Caveat:wght@400..700&family=Fjalla+One&family=Lexend:wght@100..900&family=Monoton&family=Smooch+Sans:wght@100..900&family=Staatliches&display=swap" 
           rel="stylesheet"
         />
+        <link rel="shortcut icon" href="/corona.svg" type="image/x-icon" />
       </head>
-      <body className="min-h-full flex flex-col bg-[#09090b] text-white selection:bg-[#ccff00] selection:text-black">
+      <body className="min-h-full flex flex-col bg-[#09090b] text-white selection:bg-[#5ba697] selection:text-black">
         {children}
       </body>
     </html>

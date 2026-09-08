@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 
@@ -22,7 +23,7 @@ const newArrivals = [
     discount: "-25%",
     rating: "4.9",
     reviews: "128",
-    image: "/ropacasual.jpg",
+    image: "/ropacasual.webp",
     badge: "NEW DROP"
   },
   {
@@ -34,7 +35,7 @@ const newArrivals = [
     discount: "-17%",
     rating: "5.0",
     reviews: "94",
-    image: "/ropaformal.jpg",
+    image: "/ropaformal.webp",
     badge: "BESTSELLER"
   },
   {
@@ -46,7 +47,7 @@ const newArrivals = [
     discount: "-20%",
     rating: "4.8",
     reviews: "76",
-    image: "/ropagym.jpg",
+    image: "/ropagym.avif",
     badge: "HOT"
   },
   {
@@ -58,7 +59,7 @@ const newArrivals = [
     discount: "-22%",
     rating: "4.9",
     reviews: "210",
-    image: "/ropafiesta.jpg",
+    image: "/ropafiesta.webp",
     badge: "TRENDING"
   }
 ];
@@ -123,7 +124,7 @@ export default function Home() {
     <main className="flex-1 bg-[#09090b] text-white overflow-hidden">
       
       {/* HERO SECTION MAXIMALISTA */}
-      <section className="relative w-full bg-gradient-to-br from-[#120508] via-[#09090b] to-[#1a002c] border-b-4 border-[#ccff00] pt-8 pb-16 px-4 sm:px-8 lg:px-12" aria-label="Sección Principal">
+      <section className="relative w-full bg-gradient-to-br from-[#120508] via-[#09090b] to-[#1a002c]  pt-8 pb-16 px-4 sm:px-8 lg:px-12" aria-label="Sección Principal">
         {/* Background Decorative Layer Shapes */}
         <div className="absolute top-10 left-5 w-72 h-72 bg-[#ff0055]/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
         <div className="absolute bottom-5 right-10 w-96 h-96 bg-[#00e5ff]/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
@@ -217,8 +218,9 @@ export default function Home() {
 
             {/* Main Model Frame with Eager LCP Loading */}
             <div className="relative rounded-3xl border-4 border-[#ccff00] bg-gradient-to-b from-[#ff0055] to-purple-900 p-2 shadow-[12px_12px_0px_#ff0055] group overflow-hidden max-w-md w-full">
-              <img 
-                src="/fotomodelo3.jpg" 
+              
+              <img
+                src="/fotomodelo3.webp" 
                 alt="Modelo luciendo prenda Aracon Streetwear" 
                 width={440}
                 height={480}
@@ -226,8 +228,9 @@ export default function Home() {
                 decoding="async"
                 className="w-full h-[480px] object-cover rounded-2xl filter group-hover:contrast-110 transition-all duration-300 transform group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 pointer-events-none" aria-hidden="true"></div>
               
+            
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 pointer-events-none" aria-hidden="true"></div>             
               <div className="absolute bottom-4 left-4 right-4 bg-black/90 p-3 rounded-xl border border-white/20 backdrop-blur-md">
                 <span className="text-[#00e5ff] text-xs font-mono font-bold uppercase">PRENDA RECOMENDADA</span>
                 <p className="text-white text-sm font-bold truncate">Casaca Streetwear Acid Black Edition</p>
@@ -240,13 +243,14 @@ export default function Home() {
 
 
       {/* MARCAS PARNERS CAROUSEL */}
-      <section className="w-full bg-[#ccff00] py-6 border-b-4 border-black overflow-hidden select-none" aria-label="Marcas Aliadas">
-        <div className="flex items-center gap-4 mb-2 justify-center">
-          <span className="bg-black text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest font-mono">
+
+      <div className="flex items-center m-4 justify-center">
+          <span className="text-white text-xl font-black px-3 py-1 uppercase tracking-widest font-mono">
             NUESTRAS MARCAS ALIADAS
           </span>
-        </div>
-        
+      </div>
+
+      <section className="w-full bg-[#ccff00] py-6 border-b-4 border-black overflow-hidden select-none" aria-label="Marcas Aliadas">
         <div className="w-full overflow-hidden" ref={emblaRef}>
           <div className="flex items-center">
             {extendedCompanies.map((company, index) => (
@@ -254,7 +258,7 @@ export default function Home() {
                 key={`${company.id}-${index}`} 
                 className="flex-[0_0_200px] sm:flex-[0_0_240px] min-w-0 flex items-center justify-center px-6"
               >
-                <img
+                <Image
                   src={company.src}
                   alt={`Logotipo de ${company.name}`}
                   width={company.width}
@@ -308,7 +312,7 @@ export default function Home() {
 
               {/* Image Frame */}
               <div className="w-full h-64 bg-gray-900 rounded-xl overflow-hidden mb-4 relative">
-                <img 
+                <Image 
                   src={product.image} 
                   alt={product.name}
                   width={300}
@@ -375,8 +379,8 @@ export default function Home() {
               href="/products" 
               className="md:col-span-5 relative h-[320px] rounded-3xl overflow-hidden border-3 border-[#ccff00] group shadow-[8px_8px_0px_#ff0055] transition-all hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-white focus-visible:outline-none"
             >
-              <img 
-                src="/ropacasual.jpg" 
+              <Image 
+                src="/ropacasual.webp" 
                 alt="Colección de ropa Casual" 
                 width={500}
                 height={320}
@@ -402,8 +406,8 @@ export default function Home() {
               href="/products" 
               className="md:col-span-7 relative h-[320px] rounded-3xl overflow-hidden border-3 border-[#00e5ff] group shadow-[8px_8px_0px_#000] transition-all hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-white focus-visible:outline-none"
             >
-              <img 
-                src="/ropaformal.jpg" 
+              <Image 
+                src="/ropaformal.webp" 
                 alt="Colección de ropa Formal" 
                 width={700}
                 height={320}
@@ -429,8 +433,8 @@ export default function Home() {
               href="/products" 
               className="md:col-span-7 relative h-[320px] rounded-3xl overflow-hidden border-3 border-[#ff0055] group shadow-[8px_8px_0px_#ccff00] transition-all hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-white focus-visible:outline-none"
             >
-              <img 
-                src="/ropafiesta.jpg" 
+              <Image 
+                src="/ropafiesta.webp" 
                 alt="Colección de ropa para Fiesta" 
                 width={700}
                 height={320}
@@ -456,8 +460,8 @@ export default function Home() {
               href="/products" 
               className="md:col-span-5 relative h-[320px] rounded-3xl overflow-hidden border-3 border-[#ccff00] group shadow-[8px_8px_0px_#00e5ff] transition-all hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-white focus-visible:outline-none"
             >
-              <img 
-                src="/ropagym.jpg" 
+              <Image 
+                src="/ropagym.webp" 
                 alt="Colección de ropa Gym Activewear" 
                 width={500}
                 height={320}

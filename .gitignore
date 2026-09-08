@@ -57,3 +57,4 @@ node_modules/
 # otros
 .DS_Store
 *.log
+/.agents

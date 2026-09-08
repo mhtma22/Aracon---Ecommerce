@@ -4,6 +4,7 @@ import { ChartLine } from 'lucide-react';
 import { DatabaseSearch } from 'lucide-react';
 import { ListPlus } from "lucide-react";
 import { LayersArrowDown } from "lucide-react";
+import { ListSortDescending } from "lucide-react";
 
 export default async function PanelLayout({
   children,
@@ -32,6 +33,12 @@ export default async function PanelLayout({
               <a href="/admin/dashboard" className="text-white hover:text-white/80 flex flex-row items-center text-center" style={{fontFamily: 'Smooch Sans', fontSize: '24px'}}>
               <ChartLine className="w-5 h-5 text-white mr-2" />
                 Estadisticas
+              </a>
+            </li>
+            <li className="mb-2">
+              <a href="/admin/categories" className="text-white hover:text-white/80 flex flex-row items-center text-center" style={{fontFamily: 'Smooch Sans', fontSize: '24px'}}>
+                <ListSortDescending className="w-5 h-5 text-white mr-2" />
+                Categorias
               </a>
             </li>
             <li className="mb-2">
