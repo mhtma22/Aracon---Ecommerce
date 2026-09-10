@@ -3,6 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { isAdmin } from "@/utils/supabase/auth";
 
+const MAX_IMAGES = 8;
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const IMAGE_TYPES = new Map([
+  ["image/jpeg", "jpg"],
+  ["image/png", "png"],
+  ["image/webp", "webp"],
+  ["image/avif", "avif"],
+]);
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
 
@@ -29,11 +38,17 @@ export async function POST(request: NextRequest) {
   const oldPrice = oldPriceRaw ? parseFloat(oldPriceRaw) : null;
   const categoryId = formData.get("category_id") as string;
   const variantsJson = formData.get("variants") as string;
-  const variants = JSON.parse(variantsJson) as {
+  let variants: {
     color: string | null;
     size: string | null;
     stock: number;
   }[];
+
+  try {
+    variants = variantsJson ? JSON.parse(variantsJson) : [];
+  } catch {
+    return NextResponse.json({ error: "Variantes inválidas" }, { status: 400 });
+  }
 
   const images = formData.getAll("images") as File[];
 
@@ -42,6 +57,33 @@ export async function POST(request: NextRequest) {
       { error: "Faltan campos obligatorios (nombre, slug o precio inválido)" },
       { status: 400 }
     );
+  }
+
+  if (images.length > MAX_IMAGES) {
+    return NextResponse.json(
+      { error: `Solo se permiten hasta ${MAX_IMAGES} imágenes` },
+      { status: 400 }
+    );
+  }
+
+  for (const image of images) {
+    if (!(image instanceof File) || image.size === 0) {
+      return NextResponse.json({ error: "Archivo de imagen inválido" }, { status: 400 });
+    }
+
+    if (image.size > MAX_IMAGE_SIZE) {
+      return NextResponse.json(
+        { error: "Cada imagen debe pesar como máximo 5 MB" },
+        { status: 400 }
+      );
+    }
+
+    if (!IMAGE_TYPES.has(image.type)) {
+      return NextResponse.json(
+        { error: "Formato no permitido. Usa JPG, PNG, WebP o AVIF" },
+        { status: 400 }
+      );
+    }
   }
 
   // 3. Insertar el producto
@@ -68,8 +110,8 @@ export async function POST(request: NextRequest) {
 
     for (let i = 0; i < images.length; i++) {
       const file = images[i];
-      const fileExt = file.name.split(".").pop();
-      const filePath = `${product.id}/${Date.now()}-${i}.${fileExt}`;
+      const fileExt = IMAGE_TYPES.get(file.type)!;
+      const filePath = `${product.id}/${crypto.randomUUID()}-${i}.${fileExt}`;
 
       const { error: uploadError } = await supabase.storage
         .from("products")
