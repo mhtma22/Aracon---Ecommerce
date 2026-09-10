@@ -51,6 +51,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Variantes inválidas" }, { status: 400 });
   }
 
+  if (!Array.isArray(variants) || variants.some((variant) =>
+    !Number.isInteger(variant.stock) || variant.stock < 0
+  )) {
+    return NextResponse.json({ error: "El stock de las variantes debe ser un entero no negativo" }, { status: 400 });
+  }
+
   const images = formData.getAll("images") as File[];
 
   if (!name || !slug || isNaN(price)) {
