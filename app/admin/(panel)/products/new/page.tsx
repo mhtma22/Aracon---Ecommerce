@@ -22,6 +22,11 @@ type Category = {
   name: string;
 };
 
+type Brand = {
+  id: string;
+  name: string;
+};
+
 type Variant = {
   color: string;
   size: string;
@@ -36,6 +41,8 @@ export default function NewProductPage() {
   const [oldPrice, setOldPrice] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
+  const [brandId, setBrandId] = useState("");
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [images, setImages] = useState<File[]>([]);
   const [variants, setVariants] = useState<Variant[]>([
     { color: "", size: "", stock: "10" },
@@ -47,14 +54,15 @@ export default function NewProductPage() {
   const supabase = createClient();
 
   useEffect(() => {
-    async function loadCategories() {
-      const { data } = await supabase
-        .from("categories")
-        .select("id, name")
-        .order("name");
-      setCategories(data ?? []);
+    async function loadCatalogOptions() {
+      const [{ data: categoryData }, { data: brandData }] = await Promise.all([
+        supabase.from("categories").select("id, name").order("name"),
+        supabase.from("brands").select("id, name").eq("is_active", true).order("name"),
+      ]);
+      setCategories(categoryData ?? []);
+      setBrands(brandData ?? []);
     }
-    loadCategories();
+    loadCatalogOptions();
   }, []);
 
   function handleNameChange(value: string) {
@@ -103,6 +111,7 @@ export default function NewProductPage() {
       formData.append("price", price);
       if (oldPrice) formData.append("old_price", oldPrice);
       formData.append("category_id", categoryId);
+      formData.append("brand_id", brandId);
 
       const cleanVariants = variants
         .filter((v) => v.stock !== "")

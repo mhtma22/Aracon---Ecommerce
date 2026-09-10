@@ -21,6 +21,7 @@ export default async function ProductsShopPage() {
         price,
         old_price,
         is_active,
+        brands ( name ),
         categories ( name ),
         product_images ( url, position ),
         product_variants ( stock )
@@ -148,6 +149,8 @@ export default async function ProductsShopPage() {
               const categoryName =
                 (product.categories as unknown as { name?: string })?.name ||
                 'Streetwear';
+              const brandName =
+                (product.brands as unknown as { name?: string })?.name;
 
               return (
                 <article
@@ -176,6 +179,11 @@ export default async function ProductsShopPage() {
                     <span className="text-[11px] text-[#5A6A63] font-mono uppercase tracking-wider">
                       {categoryName}
                     </span>
+                    {brandName && (
+                      <span className="text-[10px] text-[#A3B0A7] uppercase tracking-wider">
+                        {brandName}
+                      </span>
+                    )}
                     <h2 className="text-sm font-semibold text-[#2A2F2D] leading-snug group-hover:text-[#5A6A63] transition-colors truncate">
                       {product.name}
                     </h2>

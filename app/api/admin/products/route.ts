@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
   const oldPriceRaw = formData.get("old_price") as string;
   const oldPrice = oldPriceRaw ? parseFloat(oldPriceRaw) : null;
   const categoryId = formData.get("category_id") as string;
+  const brandId = formData.get("brand_id") as string;
   const variantsJson = formData.get("variants") as string;
   let variants: {
     color: string | null;
@@ -96,6 +97,7 @@ export async function POST(request: NextRequest) {
       price,
       old_price: oldPrice,
       category_id: categoryId || null,
+      brand_id: brandId || null,
     })
     .select()
     .single();
