@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CookieConsent from "../components/CookieConsent";
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
         {children}
       </div>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
