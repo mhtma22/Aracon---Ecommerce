@@ -7,6 +7,7 @@ import {
   LayoutDashboard, 
   Package, 
   Layers, 
+  Tag,
   ExternalLink, 
   LogOut, 
   Menu, 
@@ -36,6 +37,12 @@ const navItems = [
     label: "Categorías",
     href: "/admin/categories",
     icon: Layers,
+    exact: false,
+  },
+  {
+    label: "Marcas",
+    href: "/admin/brands",
+    icon: Tag,
     exact: false,
   },
 ];
