@@ -93,7 +93,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* Account Icon */}
           <Link 
-            href="/admin/login" 
+            href="/account/login" 
             className="p-2 rounded-full text-[#2A2F2D] hover:bg-[#D6DCD5]/50 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none transition"
             aria-label="Acceso a cuenta o administración"
             title="Cuenta / Administrador"
