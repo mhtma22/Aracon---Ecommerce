@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { isAdmin } from "@/utils/supabase/auth";
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -33,7 +34,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/admin") &&
     !request.nextUrl.pathname.startsWith("/admin/login");
 
-  if (isAdminRoute && !user) {
+  if (isAdminRoute && !isAdmin(user)) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 

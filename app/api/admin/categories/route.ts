@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { isAdmin } from "@/utils/supabase/auth";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -10,6 +11,9 @@ export async function POST(request: NextRequest) {
 
   if (!user) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+  }
+  if (!isAdmin(user)) {
+    return NextResponse.json({ error: "Permisos insuficientes" }, { status: 403 });
   }
 
   const body = await request.json();
