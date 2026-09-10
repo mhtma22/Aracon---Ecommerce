@@ -241,7 +241,7 @@ export default function NewProductPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
             <div className="flex flex-col gap-2">
               <label htmlFor="price" className="text-xs font-medium text-zinc-300">
                 Precio actual (S/) <span className="text-rose-400">*</span>
@@ -287,6 +287,25 @@ export default function NewProductPage() {
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label htmlFor="brandId" className="text-xs font-medium text-zinc-300">
+                Marca
+              </label>
+              <select
+                id="brandId"
+                value={brandId}
+                onChange={(e) => setBrandId(e.target.value)}
+                className="bg-zinc-900/60 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition"
+              >
+                <option value="">Sin marca</option>
+                {brands.map((brand) => (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.name}
                   </option>
                 ))}
               </select>
