@@ -25,6 +25,11 @@ create policy "Solo admins escriben productos"
 on public.products for all to authenticated
 using (public.is_admin()) with check (public.is_admin());
 
+drop policy if exists "Lectura pública productos" on public.products;
+create policy "Lectura pública productos activos"
+on public.products for select to anon, authenticated
+using (is_active = true or public.is_admin());
+
 create policy "Solo admins escriben imágenes"
 on public.product_images for all to authenticated
 using (public.is_admin()) with check (public.is_admin());

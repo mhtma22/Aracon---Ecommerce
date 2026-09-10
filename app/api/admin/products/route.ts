@@ -107,6 +107,7 @@ export async function POST(request: NextRequest) {
   // 4. Subir imágenes y guardar sus URLs
   if (images.length > 0) {
     const imageRows = [];
+    const uploadedPaths: string[] = [];
 
     for (let i = 0; i < images.length; i++) {
       const file = images[i];
@@ -118,11 +119,17 @@ export async function POST(request: NextRequest) {
         .upload(filePath, file);
 
       if (uploadError) {
+        if (uploadedPaths.length > 0) {
+          await supabase.storage.from("products").remove(uploadedPaths);
+        }
+        await supabase.from("products").delete().eq("id", product.id);
         return NextResponse.json(
-          { error: `Error subiendo imagen: ${uploadError.message}` },
+          { error: "No se pudieron subir todas las imágenes" },
           { status: 500 }
         );
       }
+
+      uploadedPaths.push(filePath);
 
       const {
         data: { publicUrl },
@@ -140,7 +147,9 @@ export async function POST(request: NextRequest) {
       .insert(imageRows);
 
     if (imagesError) {
-      return NextResponse.json({ error: imagesError.message }, { status: 500 });
+      await supabase.storage.from("products").remove(uploadedPaths);
+      await supabase.from("products").delete().eq("id", product.id);
+      return NextResponse.json({ error: "No se pudieron guardar las imágenes" }, { status: 500 });
     }
   }
 
@@ -158,7 +167,18 @@ export async function POST(request: NextRequest) {
       .insert(variantRows);
 
     if (variantsError) {
-      return NextResponse.json({ error: variantsError.message }, { status: 500 });
+      const { data: productImages } = await supabase
+        .from("product_images")
+        .select("url")
+        .eq("product_id", product.id);
+      const uploadedPaths = (productImages ?? [])
+        .map(({ url }) => url.split("/storage/v1/object/public/products/")[1])
+        .filter((path): path is string => Boolean(path));
+      if (uploadedPaths.length > 0) {
+        await supabase.storage.from("products").remove(uploadedPaths);
+      }
+      await supabase.from("products").delete().eq("id", product.id);
+      return NextResponse.json({ error: "No se pudieron guardar las variantes" }, { status: 500 });
     }
   }
 
