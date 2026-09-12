@@ -1,11 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search, ShoppingBag, User, Menu, X, ArrowRight } from 'lucide-react';
+import { createClient } from '@/utils/supabase/client';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    const loadUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setIsAuthenticated(Boolean(user));
+    };
+
+    void loadUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(Boolean(session?.user));
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#F4F5F2]/95 backdrop-blur-md border-b border-[#D6DCD5] transition-all">
@@ -91,15 +115,22 @@ export default function Navbar() {
 
         {/* Actions & Icons */}
         <div className="flex items-center gap-3">
-          {/* Account Icon */}
-          <Link 
-            href="/account/login" 
-            className="p-2 rounded-full text-[#2A2F2D] hover:bg-[#D6DCD5]/50 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none transition"
-            aria-label="Acceso a cuenta o administración"
-            title="Cuenta / Administrador"
-          >
-            <User className="w-4 h-4" />
-          </Link>
+          {isAuthenticated === true ? (
+            <span
+              className="p-2 rounded-full text-[#2A2F2D] bg-[#D6DCD5]/30"
+              aria-label="Sesión iniciada"
+              title="Sesión iniciada"
+            >
+              <User className="w-4 h-4" aria-hidden="true" />
+            </span>
+          ) : isAuthenticated === false ? (
+            <Link
+              href="/account/login"
+              className="rounded-full px-3 py-2 text-xs font-semibold text-[#2A2F2D] hover:bg-[#D6DCD5]/50 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none transition"
+            >
+              Iniciar sesión
+            </Link>
+          ) : null}
 
           {/* Cart Icon Button */}
           <Link 
