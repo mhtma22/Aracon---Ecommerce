@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Anton, Caveat, Geist, Geist_Mono, Lexend } from "next/font/google";
-import GlobalLoadingBar from "./components/GlobalLoadingBar";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="shortcut icon" href="/corona.svg" type="image/x-icon" />
       </head>
       <body className="min-h-full flex flex-col bg-[#09090b] text-white selection:bg-[#5ba697] selection:text-black">
-        <GlobalLoadingBar />
         {children}
       </body>
     </html>

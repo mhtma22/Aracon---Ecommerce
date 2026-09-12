@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import CompanyCarousel from './components/CompanyCarousel';
+import StyleCard from './components/StyleCard';
 import TestimonialsCarousel from './components/TestimonialsCarousel';
 import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Truck } from 'lucide-react';
 
@@ -321,120 +322,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             
             {/* Casual - 5 cols */}
-            <Link 
-              href="/products" 
-              className="md:col-span-5 relative h-[340px] rounded-3xl overflow-hidden border border-[#D6DCD5] group shadow-xs hover:shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none"
-            >
-              <Image 
-                src="/ropacasual.webp" 
-                alt="Colección de ropa Casual" 
-                width={500}
-                height={340}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 42vw"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" aria-hidden="true" />
-              
-              <div className="absolute bottom-6 left-6 flex flex-col gap-1">
-                <span className="bg-[#FFFFFF]/90 text-[#2A2F2D] text-[10px] font-mono font-medium px-2 py-0.5 rounded w-max uppercase tracking-wider">
-                  Drop 01
-                </span>
-                <h3 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-                  Casual
-                </h3>
-                <span className="text-xs text-zinc-300 font-medium group-hover:text-white transition-colors">
-                  Ver 120+ prendas &rarr;
-                </span>
-              </div>
-            </Link>
+            <StyleCard className="md:col-span-5" image="/ropacasual.webp" imageAlt="Colección de ropa Casual" width={500} sizes="(max-width: 768px) 100vw, 42vw" label="Drop 01" title="Casual" description="Ver 120+ prendas" />
 
             {/* Formal - 7 cols */}
-            <Link 
-              href="/products" 
-              className="md:col-span-7 relative h-[340px] rounded-3xl overflow-hidden border border-[#D6DCD5] group shadow-xs hover:shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none"
-            >
-              <Image 
-                src="/ropaformal.webp" 
-                alt="Colección de ropa Formal" 
-                width={700}
-                height={340}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 58vw"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" aria-hidden="true" />
-              
-              <div className="absolute bottom-6 left-6 flex flex-col gap-1">
-                <span className="bg-[#FFFFFF]/90 text-[#2A2F2D] text-[10px] font-mono font-medium px-2 py-0.5 rounded w-max uppercase tracking-wider">
-                  Tailored Fit
-                </span>
-                <h3 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-                  Formal Contemporáneo
-                </h3>
-                <span className="text-xs text-zinc-300 font-medium group-hover:text-white transition-colors">
-                  Ver 85+ prendas &rarr;
-                </span>
-              </div>
-            </Link>
+            <StyleCard className="md:col-span-7" image="/ropaformal.webp" imageAlt="Colección de ropa Formal" width={700} sizes="(max-width: 768px) 100vw, 58vw" label="Tailored Fit" title="Formal Contemporáneo" description="Ver 85+ prendas" />
 
             {/* Fiesta - 7 cols */}
-            <Link 
-              href="/products" 
-              className="md:col-span-7 relative h-[340px] rounded-3xl overflow-hidden border border-[#D6DCD5] group shadow-xs hover:shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none"
-            >
-              <Image 
-                src="/ropafiesta.webp" 
-                alt="Colección de ropa para Noche y Eventos" 
-                width={700}
-                height={340}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 58vw"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" aria-hidden="true" />
-              
-              <div className="absolute bottom-6 left-6 flex flex-col gap-1">
-                <span className="bg-[#FFFFFF]/90 text-[#2A2F2D] text-[10px] font-mono font-medium px-2 py-0.5 rounded w-max uppercase tracking-wider">
-                  Nightwear
-                </span>
-                <h3 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-                  Noche & Eventos
-                </h3>
-                <span className="text-xs text-zinc-300 font-medium group-hover:text-white transition-colors">
-                  Ver 95+ prendas &rarr;
-                </span>
-              </div>
-            </Link>
+            <StyleCard className="md:col-span-7" image="/ropafiesta.webp" imageAlt="Colección de ropa para Noche y Eventos" width={700} sizes="(max-width: 768px) 100vw, 58vw" label="Nightwear" title="Noche & Eventos" description="Ver 95+ prendas" />
 
             {/* Gym - 5 cols */}
-            <Link 
-              href="/products" 
-              className="md:col-span-5 relative h-[340px] rounded-3xl overflow-hidden border border-[#D6DCD5] group shadow-xs hover:shadow-md transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#5A6A63] focus-visible:outline-none"
-            >
-              <Image 
-                src="/ropagym.webp" 
-                alt="Colección de ropa Activewear" 
-                width={500}
-                height={340}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 42vw"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" aria-hidden="true" />
-              
-              <div className="absolute bottom-6 left-6 flex flex-col gap-1">
-                <span className="bg-[#FFFFFF]/90 text-[#2A2F2D] text-[10px] font-mono font-medium px-2 py-0.5 rounded w-max uppercase tracking-wider">
-                  Active
-                </span>
-                <h3 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-                  Activewear
-                </h3>
-                <span className="text-xs text-zinc-300 font-medium group-hover:text-white transition-colors">
-                  Ver 60+ prendas &rarr;
-                </span>
-              </div>
-            </Link>
+            <StyleCard className="md:col-span-5" image="/ropagym.webp" imageAlt="Colección de ropa Activewear" width={500} sizes="(max-width: 768px) 100vw, 42vw" label="Active" title="Activewear" description="Ver 60+ prendas" />
 
           </div>
 
